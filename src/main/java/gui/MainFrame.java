@@ -18,8 +18,18 @@ public class MainFrame extends JFrame implements Subscriber {
     private AppCore appCore;
     private JTable jTable;
     private JScrollPane jsp;
+    private JScrollPane jsp2;
     private JTree jTree;
     private JPanel left;
+    private JPanel right;
+    private JTextArea textBox;
+    private JButton importButton;
+    private JButton exportButton;
+    private JButton ulepsajButton;
+    private JButton runButton;
+    private JPanel unutarDesnog;
+    private JPanel unutarDesnogDesnog;
+
 
     private MainFrame() {
 
@@ -35,13 +45,44 @@ public class MainFrame extends JFrame implements Subscriber {
 
 
     private void initialise() {
-
+        importButton = new JButton("import");
+        exportButton = new JButton("export");
+        ulepsajButton = new JButton("ulepsaj");
+        runButton = new JButton("run");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        textBox = new JTextArea();
+        textBox.setVisible(true);
+        textBox.setPreferredSize(new Dimension(500,100));
+
+
+//        right.add(importButton,BorderLayout.NORTH);
+//        right.add(exportButton,BorderLayout.NORTH);
+//        right.add(ulepsajButton,BorderLayout.NORTH);
+//        right.add(runButton,BorderLayout.NORTH);
+//        right.add(textBox, BorderLayout.NORTH);
+
+        unutarDesnog = new JPanel(new FlowLayout());
+        unutarDesnog.add(importButton);
+        unutarDesnog.add(exportButton);
+        unutarDesnog.add(ulepsajButton);
+        unutarDesnog.add(runButton);
+
+
+        unutarDesnogDesnog = new JPanel(new BorderLayout());
+        unutarDesnogDesnog.add(unutarDesnog,BorderLayout.NORTH);
+        unutarDesnogDesnog.add(textBox,BorderLayout.SOUTH);
+
+
+
+        right = new JPanel(new BorderLayout());
+        right.add(unutarDesnogDesnog, BorderLayout.NORTH);
 
         jTable = new JTable();
-        jTable.setPreferredScrollableViewportSize(new Dimension(500, 400));
+        jTable.setPreferredScrollableViewportSize(new Dimension(500, 300));
         jTable.setFillsViewportHeight(true);
-        this.add(new JScrollPane(jTable));
+
+        right.add(new JScrollPane(jTable), BorderLayout.SOUTH);
+        this.add(right);
 
         this.pack();
         this.setLocationRelativeTo(null);
