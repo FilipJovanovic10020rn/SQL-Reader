@@ -1,6 +1,10 @@
 package gui;
 
 import app.AppCore;
+import gui.controler.ExportActionListener;
+import gui.controler.ImportActionListener;
+import gui.controler.RunActionListener;
+import gui.controler.UlepsajActionListener;
 import lombok.Data;
 import observer.Notification;
 import observer.Subscriber;
@@ -22,7 +26,7 @@ public class MainFrame extends JFrame implements Subscriber {
     private JTree jTree;
     private JPanel left;
     private JPanel right;
-    private JTextArea textBox;
+    private JTextPane textBox;
     private JButton importButton;
     private JButton exportButton;
     private JButton ulepsajButton;
@@ -49,10 +53,25 @@ public class MainFrame extends JFrame implements Subscriber {
         exportButton = new JButton("export");
         ulepsajButton = new JButton("ulepsaj");
         runButton = new JButton("run");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        textBox = new JTextArea();
+
+        textBox = new JTextPane();
         textBox.setVisible(true);
         textBox.setPreferredSize(new Dimension(500,100));
+
+
+        importButton.addActionListener(new ImportActionListener());//uzimamo input i parsiramo ga
+        exportButton.addActionListener(new ExportActionListener());//uzimamo input i parsiramo ga
+        ulepsajButton.addActionListener(new UlepsajActionListener(textBox));//uzimamo input i parsiramo ga
+        runButton.addActionListener(new RunActionListener(textBox));//uzimamo input i parsiramo ga
+
+
+
+
+
+
+
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
 
 //        right.add(importButton,BorderLayout.NORTH);
