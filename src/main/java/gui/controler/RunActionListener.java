@@ -17,6 +17,5 @@ public class RunActionListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //AppCore.getInstance().Validacija
         //if(TRUE) AppCore.getInstance().Run?
-        jtx.setText("KKK");
     }
 }

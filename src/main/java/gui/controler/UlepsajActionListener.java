@@ -37,10 +37,10 @@ public class UlepsajActionListener implements ActionListener {
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 
-        if(t){
-            aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
-            aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-        }
+//        if(t){
+//            aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+//            aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+//        }
 
         int len = tp.getDocument().getLength();
         tp.setCaretPosition(len);
