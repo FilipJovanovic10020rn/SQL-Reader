@@ -27,7 +27,7 @@ public class UlepsajActionListener implements ActionListener {
 
         jtx.setText("");
 
-        appendToPane(jtx," ",Color.BLACK,false);
+        appendToPane(jtx,"",Color.BLACK,false);
         provera();
 //        appendToPane(jtx,text, Color.BLUE,true);
 //        appendToPane(jtx,"",Color.BLACK,false);
@@ -48,12 +48,19 @@ public class UlepsajActionListener implements ActionListener {
         tp.replaceSelection(msg);
     }
     private void provera(){
+        boolean first = false;
         String[] words = text.split(" ");
         for (String word : words) {
             if(word.toLowerCase().equals("select") || word.toLowerCase().equals("from") || word.toLowerCase().equals("where")
                     || word.toLowerCase().equals("having") || word.toLowerCase().equals("or") || word.toLowerCase().equals("join")
                     || word.toLowerCase().equals("and") || word.toLowerCase().equals("rightjoin") || word.toLowerCase().equals("leftjoin")
             ){
+                if(first){
+                    appendToPane(jtx,"\n".toUpperCase(), Color.BLACK,false);
+                }
+                else{
+                    first = true;
+                }
                 appendToPane(jtx,word.toUpperCase(), Color.BLUE,true);
                 appendToPane(jtx," ",Color.BLACK,false);
             }

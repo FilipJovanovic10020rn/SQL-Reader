@@ -19,8 +19,16 @@
 //import javax.swing.JTextArea;
 //import javax.swing.WindowConstants;
 //
-//
-//
+
+
+// 1. DEO
+// TREBA DUGME JEDNO ZA OTVARANJE PROZORA ZA FAJLOVIMA
+// TREBA TEXTAREA ZA DA PRIKAZE NAZIV DATOTEKE
+// 2. DEO
+// TREBA DUGME KOJE CE DA GASI I DA UBACI TE PODATKE
+
+
+
 //public class ImportFrame extends JDialog{
 //
 //    public static ImportFrame instante;
