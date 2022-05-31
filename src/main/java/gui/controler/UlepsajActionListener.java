@@ -49,7 +49,8 @@ public class UlepsajActionListener implements ActionListener {
     }
     private void provera(){
         boolean first = false;
-        String[] words = text.split(" ");
+        String[] words = text.split("[\n ]");
+        //[] words = text.split(" ");
         for (String word : words) {
             if(word.toLowerCase().equals("select") || word.toLowerCase().equals("from") || word.toLowerCase().equals("where")
                     || word.toLowerCase().equals("having") || word.toLowerCase().equals("or") || word.toLowerCase().equals("join")
@@ -75,3 +76,4 @@ public class UlepsajActionListener implements ActionListener {
 
 //Select * from hr where nesto > 0 and nesto < nesto or nesto!= nesto
 }
+    //String[] words = text.split("[\n<>,.... ]");
