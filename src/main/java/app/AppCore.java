@@ -15,6 +15,7 @@ import resource.implementation.InformationResource;
 import tree.Tree;
 import tree.implementation.TreeImplementation;
 import utils.Constants;
+import validator.Validator;
 
 import javax.swing.tree.DefaultTreeModel;
 

@@ -1,5 +1,7 @@
 package validator;
 
+import gui.MainFrame;
+
 public class Validator {
 
     // Neka for petlja koja ce ici kroz listu rulova
@@ -16,24 +18,36 @@ public class Validator {
     int brojacAtributa = 0;
     int brojacEntiteta = 0;
 
+    String[] pogresniEntiteti;
+    int brojacPogresnihEntiteta = 0;
+
     public Validator(String upit) {
         this.upit = upit;
         this.reci = this.upit.split("[\n, ]");
         this.greska = false;
-        proveri();
+        //proveri();
     }
 
-    private void proveri(){
+    public String getUpit(){
+        return upit;
+    }
+    public String getReci(){
+        return reci[0];
+    }
+
+    public boolean proveri(){
         boolean select = false;
         boolean from = false;
 
 
         for(String rec : reci){
-            if((rec.toLowerCase().equals("select") || select)){
+            if((rec.toLowerCase().equals("select"))){
+                System.out.println("select");
                 select=true;
                 continue;
             }
             if(rec.toLowerCase().equals("from")){
+                System.out.println("from");
                 select=false;
                 from=true;
                 continue;
@@ -43,16 +57,60 @@ public class Validator {
                 proveraAtributa();
             }
             if(select){
-                atributi[brojacAtributa++]=rec;
+                System.out.println("nesto");
+                //atributi[brojacAtributa++]=rec;
                 continue;
             }
             if(from){
-                entiteti[brojacEntiteta++]=rec;
+                System.out.println("from proso");
+//                entiteti[brojacEntiteta++]=rec;
+                proveraEntiteta(rec);
                 continue;
             }
         }
+        return true;
     }
-    private boolean proveraAtributa(){
+
+    private void proveraEntiteta(String entitet){
+            if(entitet.toLowerCase().equals("countries")){
+                MainFrame.getInstance().getAppCore().readDataFromTable(entitet);
+            }
+            else if(entitet.toLowerCase().equals("departments")){
+                MainFrame.getInstance().getAppCore().readDataFromTable(entitet);
+            }
+            else if(entitet.toLowerCase().equals("departments")){
+                MainFrame.getInstance().getAppCore().readDataFromTable(entitet);
+            }
+            else if(entitet.toLowerCase().equals("employees")){
+                MainFrame.getInstance().getAppCore().readDataFromTable(entitet);
+            }
+            else if(entitet.toLowerCase().equals("job_history")){
+                MainFrame.getInstance().getAppCore().readDataFromTable(entitet);
+            }
+            else if(entitet.toLowerCase().equals("jobs")){
+                MainFrame.getInstance().getAppCore().readDataFromTable(entitet);
+            }
+            else if(entitet.toLowerCase().equals("locations")){
+                MainFrame.getInstance().getAppCore().readDataFromTable(entitet);
+            }
+            else if(entitet.toLowerCase().equals("regions")){
+                MainFrame.getInstance().getAppCore().readDataFromTable(entitet);
+            }
+            else{
+                //pogresniEntiteti[brojacPogresnihEntiteta++] = entitet;
+            }
+
+//
+//        if(brojacPogresnihEntiteta == 0) {
+////            MainFrame.getInstance().getAppCore().readDataFromTable(entiteti[0]);
+//            return true;
+//        }
+//        else{
+////            brojacPogresnihEntiteta = 0;
+//            return false;
+//        }
+    }
+    public boolean proveraAtributa(){
 
         //Entity.get();
         //foreach(Entity){
@@ -68,5 +126,9 @@ public class Validator {
 
         return true;
         //imace return neku gresku ili true ako nema greske
+    }
+    public void run(){
+        //OVO RADI
+        //MainFrame.getInstance().getAppCore().readDataFromTable("departments");
     }
 }
