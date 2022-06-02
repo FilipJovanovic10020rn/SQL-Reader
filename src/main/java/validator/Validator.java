@@ -9,6 +9,9 @@ import resource.implementation.Attribute;
 import resource.implementation.Entity;
 import tree.TreeItem;
 
+
+//SELECT * FROM jobs Where ( max_salary > 15000 and min_salary = 8200 ) or ( max_salary > 20000 )
+
 import java.util.List;
 
 public class Validator {
@@ -53,33 +56,69 @@ public class Validator {
 
     public boolean proveri(){
         boolean select = false;
+        boolean selectProso = false;
         boolean from = false;
+        boolean fromProso = false;
         boolean where = false;
+        boolean whereProso = false;
         boolean where1 = false;
         boolean where2 = false;
+        boolean where3 = false;
+        boolean and = false;
+        boolean andProso = false;
+        boolean or = false;
+        boolean orProso = false;
         String tipWhere = null;
 
 
         for(String rec : reci){
-            if((rec.toLowerCase().equals("select"))){
+            if(rec.equals("(")){
+                query = query.concat("(");
+                continue;
+             }
+            if(rec.equals(")")){
+                query = query.concat(")");
+                continue;
+            }
+            if((rec.toLowerCase().equals("select")) && selectProso == false){
                 query = "SELECT ";
                 //System.out.println("select");
                 select=true;
+                selectProso = true;
                 continue;
             }
-            if(rec.toLowerCase().equals("from")){
+            if(rec.toLowerCase().equals("from") && fromProso == false){
                 //System.out.println("from");
                 query = query.concat(" FROM ");
                 select=false;
                 from=true;
+                fromProso = true;
                 continue;
             }
-            if(rec.toLowerCase().equals("where")){
+            if(rec.toLowerCase().equals("where") && whereProso == false){
                 query = query.concat(" WHERE ");
                 where=true;
                 from=false;
+                whereProso = true;
                 continue;
                 //proveraAtributa();
+            }
+
+            if(rec.toLowerCase().equals("and") && whereProso == true && where3 == true){
+                query = query.concat(" AND ");
+                and = true;
+                where3 = false;
+                where = true;
+                andProso = true;
+                continue;
+            }
+            if(rec.toLowerCase().equals("or") && whereProso && where3){
+                query = query.concat(" OR ");
+                or = true;
+                where3 = false;
+                where = true;
+                orProso = true;
+                continue;
             }
             if(select){
                 //System.out.println("nesto");
@@ -191,11 +230,17 @@ public class Validator {
             }
             if(where2){
                 if(tipWhere.equals("broj")){
+                    //int q = -1;
                     try {
                         int p = Integer.parseInt(rec);
-                        System.out.println("Pravilan broj");
                         query = query.concat(rec);
-                        MainFrame.getInstance().getAppCore().readDataFromTable(query);
+                        System.out.println(query);
+                        where2 = false;
+                        where3 = true;
+                        //MainFrame.getInstance().getAppCore().readDataFromTable(query);
+
+                        System.out.println("Pravilan broj");
+
                     }catch (Exception e){
                         System.out.println("Niste uneli broj");
                     }
@@ -209,6 +254,7 @@ public class Validator {
                 }
             }
         }
+        MainFrame.getInstance().getAppCore().readDataFromTable(query);
         return true;
     }
     private boolean proveraWhere(String rec){

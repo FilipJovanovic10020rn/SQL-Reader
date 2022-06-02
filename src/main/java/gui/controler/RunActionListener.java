@@ -2,6 +2,7 @@ package gui.controler;
 
 import app.AppCore;
 import compiler.Compiler;
+import gui.MainFrame;
 import validator.Validator;
 
 import javax.swing.*;
@@ -32,10 +33,15 @@ public class RunActionListener implements ActionListener {
 //            //upit
 //        }
         //validator.run();
+
+
+//        MainFrame.getInstance().getAppCore().readDataFromTable(query);
+
         validator = new Validator(this.jtx.getText().toString());
         System.out.println(jtx.getText().toString());
         if(validator.proveri()){
             System.out.println("Proso");
+            //MainFrame.getInstance().getAppCore().readDataFromTable(query);
         }
         else{
             System.out.println("nije");

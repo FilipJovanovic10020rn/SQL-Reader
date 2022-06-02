@@ -53,8 +53,8 @@ public class UlepsajActionListener implements ActionListener {
         //[] words = text.split(" ");
         for (String word : words) {
             if(word.toLowerCase().equals("select") || word.toLowerCase().equals("from") || word.toLowerCase().equals("where")
-                    || word.toLowerCase().equals("having") || word.toLowerCase().equals("or") || word.toLowerCase().equals("join")
-                    || word.toLowerCase().equals("and") || word.toLowerCase().equals("rightjoin") || word.toLowerCase().equals("leftjoin")
+                    || word.toLowerCase().equals("having") || word.toLowerCase().equals("join")
+                    || word.toLowerCase().equals("rightjoin") || word.toLowerCase().equals("leftjoin")
             ){
                 if(first){
                     appendToPane(jtx,"\n".toUpperCase(), Color.BLACK,false);
@@ -62,6 +62,10 @@ public class UlepsajActionListener implements ActionListener {
                 else{
                     first = true;
                 }
+                appendToPane(jtx,word.toUpperCase(), Color.BLUE,true);
+                appendToPane(jtx," ",Color.BLACK,false);
+            }
+            else if(word.toLowerCase().equals("and")|| word.toLowerCase().equals("or") ){
                 appendToPane(jtx,word.toUpperCase(), Color.BLUE,true);
                 appendToPane(jtx," ",Color.BLACK,false);
             }
