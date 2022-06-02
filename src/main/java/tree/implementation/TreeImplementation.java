@@ -11,10 +11,11 @@ import java.util.List;
 
 public class TreeImplementation implements Tree {
 
+    TreeItem root;
     @Override
     public DefaultTreeModel generateTree(InformationResource informationResource) {
 
-        TreeItem root = new TreeItem(informationResource, informationResource.getName());
+        root = new TreeItem(informationResource, informationResource.getName());
         connectChildren(root);
         return new DefaultTreeModel(root);
     }
@@ -32,5 +33,7 @@ public class TreeImplementation implements Tree {
         }
 
     }
-
+    public TreeItem getRoot(){
+        return root;
+    }
 }
