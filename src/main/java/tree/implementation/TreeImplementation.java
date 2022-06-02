@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TreeImplementation implements Tree {
 
-    TreeItem root;
+    private TreeItem root;
     @Override
     public DefaultTreeModel generateTree(InformationResource informationResource) {
 

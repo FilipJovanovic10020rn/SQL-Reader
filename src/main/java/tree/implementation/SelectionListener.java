@@ -17,7 +17,7 @@ public class SelectionListener implements TreeSelectionListener {
         /* if nothing is selected */
         if (node == null || !(node.getDbNode() instanceof Entity)) return;
 
-        MainFrame.getInstance().getAppCore().readDataFromTable(node.getName());
+        MainFrame.getInstance().getAppCore().readDataFromTable("SELECT * FROM "+node.getName());
 
 
     }
