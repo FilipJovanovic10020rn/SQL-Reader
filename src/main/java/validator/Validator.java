@@ -30,6 +30,9 @@ public class Validator {
     String[] entiteti;
     int brojacAtributa = 0;
     int brojacEntiteta = 0;
+    String[] alijasi;
+    int brojacAlijasa = 0;
+    int redniBrojAlijasa = 0;
     TreeItem root;
 
     String query;
@@ -43,6 +46,7 @@ public class Validator {
         this.greska = false;
         this.atributi = new String[10];
         this.entiteti = new String[10];
+        this.alijasi = new String[]{"", "", "", "", "", "", "", "", "", "", ""};
         this.root = MainFrame.getInstance().getAppCore().getTree().getRoot();
         //proveri();
     }
@@ -68,6 +72,9 @@ public class Validator {
         boolean andProso = false;
         boolean or = false;
         boolean orProso = false;
+        boolean levaStranaJoina = false;
+        boolean desnaStranaJoina = false;
+        boolean join = false;
         String tipWhere = null;
 
 
@@ -85,6 +92,7 @@ public class Validator {
                 //System.out.println("select");
                 select=true;
                 selectProso = true;
+                levaStranaJoina = false;
                 continue;
             }
             if(rec.toLowerCase().equals("from") && fromProso == false){
@@ -93,6 +101,7 @@ public class Validator {
                 select=false;
                 from=true;
                 fromProso = true;
+                levaStranaJoina = false;
                 continue;
             }
             if(rec.toLowerCase().equals("where") && whereProso == false){
@@ -100,6 +109,7 @@ public class Validator {
                 where=true;
                 from=false;
                 whereProso = true;
+                levaStranaJoina = false;
                 continue;
                 //proveraAtributa();
             }
@@ -110,6 +120,7 @@ public class Validator {
                 where3 = false;
                 where = true;
                 andProso = true;
+                levaStranaJoina = false;
                 continue;
             }
             if(rec.toLowerCase().equals("or") && whereProso && where3){
@@ -118,8 +129,13 @@ public class Validator {
                 where3 = false;
                 where = true;
                 orProso = true;
+                levaStranaJoina = false;
                 continue;
             }
+//            if(rec.toLowerCase().equals("join") && fromProso && levaStranaJoina && orProso == false && andProso == false && whereProso == false){
+//                query = query.concat(" JOIN ");
+//                join = true;
+//            }
             if(select){
                 //System.out.println("nesto");
                 if(proveraAtributa(rec)){
@@ -142,6 +158,7 @@ public class Validator {
 
                 if(proveraEntiteta(rec)){
                     entiteti[brojacEntiteta++]=rec;
+                    levaStranaJoina = true;
                     if(brojacEntiteta == 1){
                         query = query.concat(rec);
                     }
@@ -153,13 +170,24 @@ public class Validator {
                         System.out.println("Dobar upit");
                         System.out.println(query);
                         System.out.println("ispisao je ceo query");
-                        MainFrame.getInstance().getAppCore().readDataFromTable(query);
+                        //MainFrame.getInstance().getAppCore().readDataFromTable(query);
                     }
                     else {
                         System.out.println("los upit");
                     }
                 }
                 else{
+                    if(brojacEntiteta > 0 ){
+                        if(alijasi[brojacEntiteta-1].equals("")) {
+                            redniBrojAlijasa = brojacEntiteta - 1;
+                            alijasi[redniBrojAlijasa] = rec;
+                            query = query.concat(" ");
+                            query = query.concat(rec);
+                        }
+                        else{
+                            System.out.println("vec ima alijas");
+                        }
+                    }
                     System.out.println("greska validnosti entiteta");
                 }
                 continue;

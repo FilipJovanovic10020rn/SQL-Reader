@@ -1,5 +1,6 @@
 package gui;
 
+import gui.controler.DodajKoloneActionListener;
 import gui.controler.IzaberiCsvActionListener;
 import gui.controler.RunActionListener;
 
@@ -41,7 +42,7 @@ public class ImportFrame extends JDialog{
     JButton close;
 
     private ImportFrame(){
-        setLayout(new GridLayout(4, 1));
+        setLayout(new GridLayout(3, 1));
 
     }
 
@@ -76,18 +77,18 @@ public class ImportFrame extends JDialog{
         unosSlike = new JTextArea();
         unosSlike.setEditable(false);
         primeniSliku = new JButton("Izvrsi promenu");
-        close = new JButton("OK");
+        close = new JButton("close");
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(4,1));
+        setLayout(new GridLayout(3,1));
 
         add(unosSlike);
-        dugme2 = new JButton("promena");
+        dugme2 = new JButton("Selektuj fajl");
         add(dugme2);
         // ova dva dugmeta spojiti u jedno
         add(primeniSliku);
-        add(close);
+        //add(close);
 
-        //primeniSliku.setAction(MainFrame.getInstance().getActionManager().getEditPozadinaAction());
+        primeniSliku.addActionListener(new DodajKoloneActionListener());
         dugme2.addActionListener(new IzaberiCsvActionListener());
         //close.setAction(MainFrame.getInstance().getActionManager().getCloseEdit());
     }

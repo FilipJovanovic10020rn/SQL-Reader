@@ -7,4 +7,7 @@ public class Constants {
     public static final String MYSQL_USERNAME = "bp_tim20";
     public static final String MYSQL_PASSWORD = "mCuz5mF5";
 
+    public static final String RULE_NAME="RULE NAME";
+    public static final String HINT="HINT";
+    public static final String DESC="DESCRIPTION";
 }
