@@ -34,8 +34,20 @@ public class RunActionListener implements ActionListener {
 //        }
         //validator.run();
 
+        String upit = jtx.getText();
 
-        MainFrame.getInstance().getAppCore().readDataFromTable(this.jtx.getText().toString());
+        if(!upit.isEmpty()) {
+            if(MainFrame.getInstance().getValidator().validacija(upit)){
+                System.out.println("proso sam");
+                //MainFrame.getInstance().getAppCore().readDataFromTable(this.jtx.getText());
+            }
+        }
+
+
+        //MainFrame.getInstance().getAppCore().readDataFromTable(this.jtx.getText().toString());
+
+
+
 
 //        validator = new Validator(this.jtx.getText().toString());
 //        System.out.println(jtx.getText().toString());

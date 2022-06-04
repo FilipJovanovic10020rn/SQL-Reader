@@ -6,12 +6,15 @@ import gui.controler.ImportActionListener;
 import gui.controler.RunActionListener;
 import gui.controler.UlepsajActionListener;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import observer.Notification;
 import observer.Subscriber;
 import resource.DBNode;
 import resource.DBNodeComposite;
 import tree.TreeItem;
 import tree.implementation.SelectionListener;
+import validator.ValidatorImplementacijaa;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
@@ -19,6 +22,8 @@ import java.awt.*;
 import java.util.List;
 
 @Data
+@Getter
+@Setter
 public class MainFrame extends JFrame implements Subscriber {
 
     private static MainFrame instance = null;
@@ -37,6 +42,8 @@ public class MainFrame extends JFrame implements Subscriber {
     private JButton runButton;
     private JPanel unutarDesnog;
     private JPanel unutarDesnogDesnog;
+
+    private ValidatorImplementacijaa validator;
 
 
     private MainFrame() {
@@ -119,6 +126,7 @@ public class MainFrame extends JFrame implements Subscriber {
         this.appCore.addSubscriber(this);
         this.jTable.setModel(appCore.getTableModel());
         initialiseTree();
+        this.validator = new ValidatorImplementacijaa();
     }
 
     private void initialiseTree() {

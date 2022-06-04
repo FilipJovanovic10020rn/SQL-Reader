@@ -9,24 +9,44 @@ public class ValidatorImplementacijaa implements ValidatorInterface{
 
     ArrayList<AbstractRule> pravila;
     RuleInit ruleInit;
+    AbstractRule scvPravila;
 
-    public ValidatorImplementacijaa(ArrayList<AbstractRule> pravila) {
+    public ValidatorImplementacijaa() {
         pravila = new ArrayList<>();
         ruleInit = new RuleInit();
         pravila.addAll(ruleInit.inicijalizacija());
+        scvPravila = ruleInit.inicijalizacijaCSV();
     }
 
     @Override
-    public void validacija(String upit) {
-
+    public boolean validacija(String upit) {
+        String povratnaInformacija = "";
         for(AbstractRule pravilo :pravila){
-            if(pravilo.proveraPravila(upit)){
+            if(pravilo.proveraPravila(upit) == null){
                 //tacno
             }
             else{
-                //netacno
+                povratnaInformacija += pravilo.proveraPravila(upit);
             }
         }
+        if(povratnaInformacija == ""){
+            return true;
+        }
+        //sout
+        System.out.println(povratnaInformacija);
+        return false;
 
+    }
+    public boolean validacijaCSV(String entitet, String atribut) {
+        String povratnaInformacija = "";
+        if(scvPravila.provera(entitet,atribut)){
+            return true;
+        }else{
+            povratnaInformacija += "Tabela nije pravilno napisana, entiteti fali ili nisu tacni";
+        }
+        if(povratnaInformacija == ""){
+            return true;
+        }
+        return false;
     }
 }

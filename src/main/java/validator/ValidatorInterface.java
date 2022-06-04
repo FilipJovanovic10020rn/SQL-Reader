@@ -1,5 +1,5 @@
 package validator;
 
 public interface ValidatorInterface {
-    void validacija(String upit);
+    boolean validacija(String upit);
 }

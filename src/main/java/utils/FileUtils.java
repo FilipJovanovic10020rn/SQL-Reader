@@ -21,7 +21,7 @@ public class FileUtils {
         try {
             FileWriter pw = new FileWriter(csvOutputFile);
             String str="";
-            String ime="";
+            String ime=", ";
 
             for (int i = 0; i < MainFrame.getInstance().getJTable().getColumnCount(); i++) {
                 ime+=MainFrame.getInstance().getJTable().getColumnName(i)+", ";
@@ -116,7 +116,8 @@ public class FileUtils {
                     query=query.substring(0,query.length()-1);
                     System.out.println(query);
                     if(s1 != null) {
-                        if (MainFrame.getInstance().provera(entitet, s1)) {
+                        if(MainFrame.getInstance().getValidator().validacijaCSV(entitet,s1)){
+                        //if (MainFrame.getInstance().provera(entitet, s1)) {
                             System.out.println("Izvrseno");
                             //MainFrame.getInstance().getAppCore().readDataFromTable(query);
                         } else {

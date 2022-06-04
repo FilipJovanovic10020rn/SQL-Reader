@@ -10,11 +10,12 @@ public class ObavezniDelovi extends AbstractRule {
 
 
     public ObavezniDelovi() {
-        this.root = MainFrame.getInstance().getAppCore().getTree().getRoot();
+//        this.root = MainFrame.getInstance().getAppCore().getTree().getRoot();
     }
 
     @Override
-    public boolean proveraPravila(String upit) {
+    public String proveraPravila(String upit) {
+        root = MainFrame.getInstance().getAppCore().getTree().getRoot();
         String[] reci = upit.split("[\n, ]");
         boolean select = false;
         boolean delete = false;
@@ -62,7 +63,7 @@ public class ObavezniDelovi extends AbstractRule {
                 prethodnoInsetr = false;
             }
             if(rec.toLowerCase().equals("update") && !select && !delete && !insert && !update){
-                insert = true;
+                update = true;
                 continue;
             }
             if(rec.toLowerCase().equals("set") && insert && !set){
@@ -74,6 +75,28 @@ public class ObavezniDelovi extends AbstractRule {
                 continue;
             }
         }
+        if((select && from) || (delete && from) || (insert && into && values) || (update && set) || (exec)){
+            return null;
+        }
+        else if((select && !from) || (delete && !from)){
+            return "From nije na dobrom mestu\n";
+        }
+        else if(insert && !into){
+            return "Into nije na dobrom mestu\n";
+        }
+        else if(into && !values){
+            return "Values nije na dobrom mestu\n";
+        }
+        else if(update && !set){
+            return "Set nije na dobrom mestu\n";
+        }
+        else{
+            return "Nije dobar redosled\n";
+        }
+    }
+
+    @Override
+    public boolean provera(String entitet, String atribut) {
         return false;
     }
 }
