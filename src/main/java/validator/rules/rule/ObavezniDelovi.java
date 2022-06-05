@@ -39,6 +39,9 @@ public class ObavezniDelovi extends AbstractRule {
         boolean joinPosleWhereGreska = false;
 
         for(String rec: reci) {
+            if(rec.toLowerCase().equals("create")){
+                return null;
+            }
             if(rec.toLowerCase().equals("select") && !delete && !insert && !select && !update){
                 select = true;
                 continue;

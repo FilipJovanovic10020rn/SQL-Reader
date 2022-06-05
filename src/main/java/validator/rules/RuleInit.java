@@ -15,6 +15,8 @@ public class RuleInit {
         pravila.add(new PravilanRedosled()); // Zamenio sam nazive pravilanredosled i obavezniDelovi
         pravila.add(new ObavezniDelovi());
         pravila.add(new WhereAgregacija());
+        pravila.add(new GroupBy());
+        pravila.add(new DefinisanePromenljive());
 
 
         return pravila;

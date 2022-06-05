@@ -15,6 +15,9 @@ public class PravilanRedosled extends AbstractRule {
         boolean update = false;
         boolean set = false;
         for(String rec: reci) {
+            if(rec.toLowerCase().equals("create")){
+                return null;
+            }
             if(rec.toLowerCase().equals("insert")){
                 insert = true;
             }
