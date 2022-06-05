@@ -9,7 +9,7 @@ public class WhereAgregacija  extends AbstractRule {
     public String proveraPravila(String upit) {
 
         String greska = "";
-        String[] reci = upit.split("[\n(), ]");
+        String[] reci = upit.split("[\r\n(), ]");
         boolean where = false;
         for(String rec : reci){
             if(rec.toLowerCase().equals("where")){
@@ -20,7 +20,7 @@ public class WhereAgregacija  extends AbstractRule {
             || rec.toLowerCase().equals("count") || rec.toLowerCase().equals("min")
             || rec.toLowerCase().equals("max")){
                 if(where){
-                    greska += rec + " ne moze biti u sklopu where";
+                    greska += rec + " ne moze biti u sklopu where\n";
                 }
                 continue;
             }

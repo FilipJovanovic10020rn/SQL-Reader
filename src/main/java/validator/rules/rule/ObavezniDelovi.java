@@ -16,7 +16,7 @@ public class ObavezniDelovi extends AbstractRule {
     @Override
     public String proveraPravila(String upit) {
         root = MainFrame.getInstance().getAppCore().getTree().getRoot();
-        String[] reci = upit.split("[\n, ]");
+        String[] reci = upit.split("[\r\n, ]");
         boolean select = false;
         boolean delete = false;
         boolean from = false;

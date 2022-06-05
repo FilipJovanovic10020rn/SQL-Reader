@@ -7,12 +7,12 @@ import validator.rules.AbstractRule;
 public class GroupBy extends AbstractRule {
     @Override
     public String proveraPravila(String upit) {
-        String[] reci = upit.split("[\n(), ]");
+        String[] reci = upit.split("[\r\n(), ]");
         boolean agregacija = false;
         boolean group = false;
         boolean select = false;
-        String[] atributZaAgregaciju = new String[10];
-        String[] atributi = new String[10];
+        String[] atributZaAgregaciju = new String[100];
+        String[] atributi = new String[100];
         int brojAtributaZaAgregaiju = 0;
         int brojAtributa = 0;
         boolean agregacijaSledece = false;

@@ -37,7 +37,7 @@ public class DefinisanePromenljive extends AbstractRule {
         if(jeste){
             return null;
         }
-        return "Mora se iskoristiti " + novaRec + " u funkciji/proceduri";
+        return "Mora se iskoristiti " + novaRec + " u funkciji/proceduri\n";
     }
 
     @Override

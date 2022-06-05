@@ -35,7 +35,7 @@ public class ValidatorImplementacijaa implements ValidatorInterface{
         if(povratnaInformacija == "" || povratnaInformacija == null){
             return true;
         }
-        //sout
+        System.out.println(povratnaInformacija);
 
         return false;
 

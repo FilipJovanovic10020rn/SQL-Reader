@@ -17,6 +17,7 @@ public class RuleInit {
         pravila.add(new WhereAgregacija());
         pravila.add(new GroupBy());
         pravila.add(new DefinisanePromenljive());
+        pravila.add(new AlijasiSaNavodnicima());
 
 
         return pravila;

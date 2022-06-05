@@ -135,21 +135,36 @@ public class MYSQLrepository implements Repository{
 
             //String query = "SELECT * FROM " + from;
             String query = from;
-
+            ResultSet rs = null;
+            ResultSetMetaData resultSetMetaData = null;
+            int a;
+            boolean select = false;
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet rs = preparedStatement.executeQuery();
-            ResultSetMetaData resultSetMetaData = rs.getMetaData();
+            if(query.toLowerCase().startsWith("select")){
+                rs = preparedStatement.executeQuery();
+                resultSetMetaData = rs.getMetaData();
+                select = true;
+            }
+            else{
+                a=preparedStatement.executeUpdate();
+                System.out.println(a +" records inserted");
+                return null;
+            }
+            if(select) {
+                while (rs.next()) {
 
-            while (rs.next()){
+                    Row row = new Row();
+                    row.setName(from);
 
-                Row row = new Row();
-                row.setName(from);
+                    for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
+                        row.addField(resultSetMetaData.getColumnLabel(i), rs.getString(i));
+                    }
+                    rows.add(row);
 
-                for (int i = 1; i<=resultSetMetaData.getColumnCount(); i++){
-                    row.addField(resultSetMetaData.getColumnName(i), rs.getString(i));
+
                 }
-                rows.add(row);
-
+            }
+            else{
 
             }
         }

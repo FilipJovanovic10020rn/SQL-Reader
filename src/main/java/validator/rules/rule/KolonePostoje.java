@@ -30,7 +30,7 @@ public class KolonePostoje extends AbstractRule {
     public String proveraPravila(String upit) {
         //root = MainFrame.getInstance().getAppCore().getTree().getRoot();
         String greska = "";
-        String[] reci = upit.split("[\n(), ]");
+        String[] reci = upit.split("[\r\n(), ]");
 
         atributiLista = new String[10];
         entitetiLista = new String[10];
@@ -63,7 +63,23 @@ public class KolonePostoje extends AbstractRule {
         boolean between = false;
         boolean alijass = false;
         boolean skipDokNijeSelect = false;
+        boolean agregaci =false;
+        boolean navo = false;
         for(String rec: reci) {
+            if(select && rec.toLowerCase().equals("distinct")){
+                continue;
+            }
+            if(rec.toLowerCase().startsWith("\"")){
+                navo=true;
+                continue;
+            }
+            if(navo && rec.toLowerCase().endsWith("\"")){
+                navo=false;
+                continue;
+            }
+            if(navo){
+                continue;
+            }
             if(rec.toLowerCase().equals("create")){
                 return null;
             }
@@ -93,9 +109,17 @@ public class KolonePostoje extends AbstractRule {
             }
             if(rec.toLowerCase().equals("sum") || rec.toLowerCase().equals("avg")
                     || rec.toLowerCase().equals("count") || rec.toLowerCase().equals("min")
-                    || rec.toLowerCase().equals("max") || rec.toLowerCase().equals("having")
-                    || rec.toLowerCase().equals("by") || rec.toLowerCase().equals("group")
-        || rec.toLowerCase().equals("order")){
+                    || rec.toLowerCase().equals("max")){
+                //from = false;
+                agregaci = true;
+                continue;
+            }
+            if(rec.toLowerCase().equals("having") || rec.toLowerCase().equals("group") || rec.toLowerCase().equals("order")){
+                from = false;
+                continue;
+            }
+            if(rec.toLowerCase().equals("by")){
+                where = true;
                 continue;
             }
             if(rec.toLowerCase().equals("as")){
@@ -210,7 +234,7 @@ public class KolonePostoje extends AbstractRule {
                     continue;
                 }
             }
-            if(select || set) {
+            if(select || set || agregaci) {
                 if(rec.equals("*")){
                     bilaZvezdica = true;
                     continue;
@@ -234,6 +258,7 @@ public class KolonePostoje extends AbstractRule {
                             jesteAtribut = true;
                             atributJestBag = true;
                             atributiLista[brojacAtributa]=rec;
+                            //System.out.println(atributiLista[brojacAtributa]);
                             brojacAtributa++;
 
                             break;
@@ -245,6 +270,13 @@ public class KolonePostoje extends AbstractRule {
                     }
                 }
                 if(jeste){
+                    continue;
+                }
+                if(agregaci){
+                    greska = greska.concat("Atribut ");
+                    greska = greska.concat(rec);
+                    greska = greska.concat(" ne postoji.\n");
+                    agregaci = false;
                     continue;
                 }
                 if(brojacAtributa != brojacAlijasaAtributa) {
@@ -309,6 +341,9 @@ public class KolonePostoje extends AbstractRule {
                     continue;
                 }
             }
+            else if(delete){
+                greska = greska.concat("Posle delete mora biti from a ne atributi");
+            }
             else{
                 greska = greska.concat("Nepoznata greska sa " + rec + ".\n");
                 continue;
@@ -351,7 +386,7 @@ public class KolonePostoje extends AbstractRule {
                         List<DBNode> childrenA = ((DBNodeComposite) entiteti).getChildren();
                         for(int j = 0;j<brojacAtributa;j++){
                             for(DBNode atributi : childrenA){
-                                System.out.println("moja lista " + atributiLista[j] + " + " + atributi.getName());
+                                //System.out.println("moja lista " + atributiLista[j] + " + " + atributi.getName());
                                 if((atributi.getName().toLowerCase().equals(atributiLista[j].toLowerCase())) &&
                                         (proveraMedjuProverenim(atributiLista[j].toLowerCase()))){
                                     provereniAtributi[brojacProverenih++]=atributiLista[j];
@@ -363,7 +398,7 @@ public class KolonePostoje extends AbstractRule {
                 }
             }
         }
-        System.out.println(brojacAtributa + " " + brojacProverenih);
+        //System.out.println(brojacAtributa + " " + brojacProverenih);
         if(brojacAtributa != brojacProverenih){
             for(int i = 0;i<brojacAtributa;i++){
                 boolean tacan = false;
@@ -373,7 +408,7 @@ public class KolonePostoje extends AbstractRule {
                     }
                 }
                 if(!tacan){
-                    greska = greska.concat(atributiLista[i] + " nije atribut ni jednog entiteta");
+                    greska = greska.concat(atributiLista[i] + " nije atribut ni jednog entiteta\n");
                 }
             }
         }

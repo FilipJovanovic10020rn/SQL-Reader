@@ -53,12 +53,9 @@ public class UlepsajActionListener implements ActionListener {
         //[] words = text.split(" ");
         for (String word : words) {
             if(word.toLowerCase().equals("select") || word.toLowerCase().equals("from") || word.toLowerCase().equals("where")
-                    || word.toLowerCase().equals("having") || word.toLowerCase().equals("join")
-                    || word.toLowerCase().equals("right") || word.toLowerCase().equals("left") || word.toLowerCase().equals("on")
-                    || word.toLowerCase().equals("using") || word.toLowerCase().equals("order") || word.toLowerCase().equals("by")
-                    || word.toLowerCase().equals("count") || word.toLowerCase().equals("min") || word.toLowerCase().equals("max")
-                    || word.toLowerCase().equals("avg") || word.toLowerCase().equals("sum") || word.toLowerCase().equals("and")
-                    || word.toLowerCase().equals("or") || word.toLowerCase().equals("group") || word.toLowerCase().equals("between")
+                    || word.toLowerCase().equals("having") || word.toLowerCase().equals("order")
+                    || word.toLowerCase().equals("group")|| word.toLowerCase().equals("delete")|| word.toLowerCase().equals("insert")
+                    || word.toLowerCase().equals("update")|| word.toLowerCase().equals("create") || word.toLowerCase().equals("exec")
             ){
                 if(first){
                     appendToPane(jtx,"\n".toUpperCase(), Color.BLACK,false);
@@ -69,8 +66,21 @@ public class UlepsajActionListener implements ActionListener {
                 appendToPane(jtx,word.toUpperCase(), Color.BLUE,true);
                 appendToPane(jtx," ",Color.BLACK,false);
             }
-            else if(word.toLowerCase().equals("and")|| word.toLowerCase().equals("or") ){
+            else if(word.toLowerCase().equals("and")|| word.toLowerCase().equals("or") || word.toLowerCase().equals("on")
+                    || word.toLowerCase().equals("using") || word.toLowerCase().equals("by")
+                     || word.toLowerCase().equals("between")|| word.toLowerCase().equals("into") || word.toLowerCase().equals("procedure")
+                    || word.toLowerCase().equals("function") || word.toLowerCase().equals("join")
+                    || word.toLowerCase().equals("right") || word.toLowerCase().equals("left")
+                    || word.toLowerCase().equals("set") || word.toLowerCase().equals("as") || word.toLowerCase().startsWith("distinct")){
                 appendToPane(jtx,word.toUpperCase(), Color.BLUE,true);
+                appendToPane(jtx," ",Color.BLACK,false);
+            }
+            else if(word.toLowerCase().startsWith("count") || word.toLowerCase().startsWith("min") || word.toLowerCase().startsWith("max")
+                    || word.toLowerCase().startsWith("avg") || word.toLowerCase().startsWith("sum") ){
+                String[] reci = word.split("[(]");
+                appendToPane(jtx,reci[0].toUpperCase(),Color.BLUE,true);
+                appendToPane(jtx,"(",Color.BLACK,false);
+                appendToPane(jtx,reci[1],Color.BLACK,false);
                 appendToPane(jtx," ",Color.BLACK,false);
             }
             else{

@@ -5,7 +5,7 @@ import validator.rules.AbstractRule;
 public class PravilanRedosled extends AbstractRule {
     @Override
     public String proveraPravila(String upit) {
-        String[] reci = upit.split("[\n ]");
+        String[] reci = upit.split("[\r\n ]");
         boolean insert = false;
         boolean into = false;
         boolean select = false;

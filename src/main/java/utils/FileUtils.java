@@ -119,9 +119,9 @@ public class FileUtils {
                         if(MainFrame.getInstance().getValidator().validacijaCSV(entitet,s1)){
                         //if (MainFrame.getInstance().provera(entitet, s1)) {
                             System.out.println("Izvrseno");
-                            //MainFrame.getInstance().getAppCore().readDataFromTable(query);
+                            MainFrame.getInstance().getAppCore().readDataFromTable(query);
                         } else {
-                            System.out.println("Redovi ne postoje u tabeli");
+                            System.out.println("Redovi ne postoje u tabeli\n");
                         }
                     }
                     //if(MainFrame.getInstance().getChecker().check(query))
@@ -131,7 +131,7 @@ public class FileUtils {
 
 
         } catch (FileNotFoundException ex) {
-            System.out.println("greska");
+            System.out.println("greska citanja falja\n");
             ex.printStackTrace();
         }
     }
