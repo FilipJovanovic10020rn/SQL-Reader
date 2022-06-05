@@ -58,7 +58,7 @@ public class UlepsajActionListener implements ActionListener {
                     || word.toLowerCase().equals("using") || word.toLowerCase().equals("order") || word.toLowerCase().equals("by")
                     || word.toLowerCase().equals("count") || word.toLowerCase().equals("min") || word.toLowerCase().equals("max")
                     || word.toLowerCase().equals("avg") || word.toLowerCase().equals("sum") || word.toLowerCase().equals("and")
-                    || word.toLowerCase().equals("or") || word.toLowerCase().equals("group")
+                    || word.toLowerCase().equals("or") || word.toLowerCase().equals("group") || word.toLowerCase().equals("between")
             ){
                 if(first){
                     appendToPane(jtx,"\n".toUpperCase(), Color.BLACK,false);

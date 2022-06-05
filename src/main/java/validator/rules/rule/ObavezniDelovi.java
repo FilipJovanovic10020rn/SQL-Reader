@@ -75,7 +75,7 @@ public class ObavezniDelovi extends AbstractRule {
                 update = true;
                 continue;
             }
-            if(rec.toLowerCase().equals("set") && insert && !set){
+            if(rec.toLowerCase().equals("set") && update && !set){
                 set = true;
                 continue;
             }
