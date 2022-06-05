@@ -1,9 +1,6 @@
 package validator.rules;
 
-import validator.rules.rule.CSVProvera;
-import validator.rules.rule.KolonePostoje;
-import validator.rules.rule.ObavezniDelovi;
-import validator.rules.rule.PravilanRedosled;
+import validator.rules.rule.*;
 
 import java.util.ArrayList;
 
@@ -17,6 +14,7 @@ public class RuleInit {
         pravila.add(new KolonePostoje());
         pravila.add(new PravilanRedosled()); // Zamenio sam nazive pravilanredosled i obavezniDelovi
         pravila.add(new ObavezniDelovi());
+        pravila.add(new WhereAgregacija());
 
 
         return pravila;

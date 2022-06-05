@@ -44,7 +44,7 @@ public class RunActionListener implements ActionListener {
         }
 
 
-        //MainFrame.getInstance().getAppCore().readDataFromTable(this.jtx.getText().toString());
+//        MainFrame.getInstance().getAppCore().readDataFromTable(this.jtx.getText().toString());
 
 
 

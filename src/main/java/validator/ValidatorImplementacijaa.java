@@ -21,19 +21,22 @@ public class ValidatorImplementacijaa implements ValidatorInterface{
     @Override
     public boolean validacija(String upit) {
         String povratnaInformacija = "";
+        int brojac=0;
         for(AbstractRule pravilo :pravila){
-            if(pravilo.proveraPravila(upit) == null){
+            if(pravilo.proveraPravila(upit) == null || pravilo.proveraPravila(upit) == ""){
                 //tacno
             }
             else{
+                System.out.println(brojac++);
                 povratnaInformacija += pravilo.proveraPravila(upit);
+                System.out.println(povratnaInformacija);
             }
         }
-        if(povratnaInformacija == ""){
+        if(povratnaInformacija == "" || povratnaInformacija == null){
             return true;
         }
         //sout
-        System.out.println(povratnaInformacija);
+
         return false;
 
     }

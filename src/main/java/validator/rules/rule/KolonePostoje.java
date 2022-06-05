@@ -36,25 +36,36 @@ public class KolonePostoje extends AbstractRule {
         boolean as = false;
         boolean alijasNavodnici = false;
         boolean atributJestBag = false;
+        boolean using = false;
+        boolean on = false;
+        boolean andor = false;
         for(String rec: reci) {
-//            if(preskoci){
-//                preskoci = false;
-//                continue;
-//            }
+            if(preskoci){
+                preskoci = false;
+                continue;
+            }
             if(rec.equals("") || rec.equals(" ") || rec.equals("\n") || rec.equals(" \n")|| rec.equals("\n ") || rec.contains("\n")){
                 //nista;
-                System.out.println("radnom rec");
+                //System.out.println("radnom rec");
                 continue;
             }
             if(as){
                 as = false;
                 continue;
             }
-            if(rec.equals("=")){
+            if(rec.equals("=") || rec.equals("<")|| rec.equals(">")|| rec.toLowerCase().equals("like")
+                    || rec.equals("<=")|| rec.equals(">=")|| rec.equals("<>")
+                    || rec.toLowerCase().equals("between")|| rec.toLowerCase().equals("in")){
                 preskoci = true;
                 continue;
             }
-
+            if(rec.toLowerCase().equals("sum") || rec.toLowerCase().equals("avg")
+                    || rec.toLowerCase().equals("count") || rec.toLowerCase().equals("min")
+                    || rec.toLowerCase().equals("max") || rec.toLowerCase().equals("having")
+                    || rec.toLowerCase().equals("by") || rec.toLowerCase().equals("group")
+        || rec.toLowerCase().equals("order")){
+                continue;
+            }
             if(rec.toLowerCase().equals("as")){
                 as=true;
                 continue;
@@ -84,6 +95,29 @@ public class KolonePostoje extends AbstractRule {
             }
             if(rec.toLowerCase().equals("set")){
                 set = true;
+                continue;
+            }
+            if(rec.toLowerCase().equals("left") || rec.toLowerCase().equals("right")){
+                continue;
+            }
+            if(rec.toLowerCase().equals("join")){
+                from = true;
+                continue;
+            }
+            if(rec.toLowerCase().equals("using")){
+                from = false;
+                using = true;
+                continue;
+            }
+            if(rec.toLowerCase().equals("on")){
+                on = true;
+                from = false;
+                continue;
+            }
+            if(rec.toLowerCase().equals("and") || rec.toLowerCase().equals("or")){
+                set = false;
+                from = false;
+                andor = true;
                 continue;
             }
             if(from || into || update) {
@@ -124,11 +158,11 @@ public class KolonePostoje extends AbstractRule {
                 if(rec.equals("*")){
                     continue;
                 }
-                String novaRec = rec;
-                if(rec.contains(".")){
-                    String[] noveReci = rec.split(".");
-                    novaRec = noveReci[1];
-                }
+//                String novaRec = rec;
+//                if(rec.contains(".")){
+//                    String[] noveReci = rec.split(".");
+//                    novaRec = noveReci[1];
+//                }
                 List<DBNode> children = ((DBNodeComposite) root.getDbNode()).getChildren();
                 boolean jesteAtribut = false;
                 for (DBNode entiteti : children) {
@@ -159,7 +193,7 @@ public class KolonePostoje extends AbstractRule {
                     continue;
                 }
             }
-            if(where || set){
+            if(where || set || using || on || andor){
                 String novaRec = rec;
                 if(rec.contains(".")){
                     String[] noveReci = rec.split(".");
@@ -197,10 +231,10 @@ public class KolonePostoje extends AbstractRule {
                 continue;
             }
         }
-        if(greska != ""){
-            return greska;
+        if(greska == "" || greska == null){
+            return null;
         }
-        return  null;
+        return  greska;
     }
 
     @Override
