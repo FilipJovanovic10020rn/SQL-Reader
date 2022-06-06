@@ -38,7 +38,7 @@ public class RunActionListener implements ActionListener {
 
         if(!upit.isEmpty()) {
             if(MainFrame.getInstance().getValidator().validacija(upit)){
-                System.out.println("proso sam");
+//                System.out.println("proso sam");
                 MainFrame.getInstance().getAppCore().readDataFromTable(this.jtx.getText());
             }
         }

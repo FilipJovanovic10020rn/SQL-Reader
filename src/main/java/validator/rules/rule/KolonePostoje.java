@@ -64,6 +64,7 @@ public class KolonePostoje extends AbstractRule {
         boolean alijass = false;
         boolean skipDokNijeSelect = false;
         boolean agregaci =false;
+        boolean intoBio = false;
         boolean navo = false;
         for(String rec: reci) {
             if(select && rec.toLowerCase().equals("distinct")){
@@ -78,6 +79,9 @@ public class KolonePostoje extends AbstractRule {
                 continue;
             }
             if(navo){
+                continue;
+            }
+            if(rec.startsWith("\'") && rec.endsWith("\'")){
                 continue;
             }
             if(rec.toLowerCase().equals("create")){
@@ -157,6 +161,7 @@ public class KolonePostoje extends AbstractRule {
             }
             if(rec.toLowerCase().equals("into")){
                 into=true;
+                intoBio = true;
                 continue;
             }
             if(rec.toLowerCase().equals("update")){
@@ -212,7 +217,7 @@ public class KolonePostoje extends AbstractRule {
                     select = true;
                     into = false;
                 }
-                if(brojacEntiteta != brojacAlijasa){
+                if(brojacEntiteta != brojacAlijasa && !select){
                     alijas = true;
                     if(rec.contains("\"") && navodnici){
                         navodnici = false;
@@ -233,6 +238,7 @@ public class KolonePostoje extends AbstractRule {
                     greska = greska.concat(" ne postoji.\n");
                     continue;
                 }
+                continue;
             }
             if(select || set || agregaci) {
                 if(rec.equals("*")){
@@ -258,7 +264,7 @@ public class KolonePostoje extends AbstractRule {
                             jesteAtribut = true;
                             atributJestBag = true;
                             atributiLista[brojacAtributa]=rec;
-                            //System.out.println(atributiLista[brojacAtributa]);
+                            System.out.println(atributiLista[brojacAtributa]);
                             brojacAtributa++;
 
                             break;
@@ -279,7 +285,7 @@ public class KolonePostoje extends AbstractRule {
                     agregaci = false;
                     continue;
                 }
-                if(brojacAtributa != brojacAlijasaAtributa) {
+                if(brojacAtributa != brojacAlijasaAtributa && !intoBio) {
                     alijass = true;
                     if(rec.endsWith("\"") && navodniciA) {
                         navodniciA = false;

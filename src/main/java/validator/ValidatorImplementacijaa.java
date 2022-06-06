@@ -27,9 +27,9 @@ public class ValidatorImplementacijaa implements ValidatorInterface{
                 //tacno
             }
             else{
-                System.out.println(brojac++);
+                //System.out.println(brojac++);
                 povratnaInformacija += pravilo.proveraPravila(upit);
-                System.out.println(povratnaInformacija);
+                //System.out.println(povratnaInformacija);
             }
         }
         if(povratnaInformacija == "" || povratnaInformacija == null){

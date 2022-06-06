@@ -10,6 +10,10 @@ public class AlijasiSaNavodnicima extends AbstractRule {
 
         String greska = "";
         //String[] reci = upit.split("[\r\n ]");
+        if(upit.toLowerCase().startsWith("delete") || upit.toLowerCase().startsWith("insert")
+        || upit.toLowerCase().startsWith("exec") || upit.toLowerCase().startsWith("create") || upit.toLowerCase().startsWith("update")){
+            return null;
+        }
         String[] reciBezSelect = upit.toLowerCase().split("select ");
         String[] reciBezFrom = reciBezSelect[1].toLowerCase().split(" from");
         String[] reci = reciBezFrom[0].split(", ");
