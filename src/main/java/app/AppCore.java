@@ -15,6 +15,7 @@ import resource.implementation.InformationResource;
 import tree.Tree;
 import tree.implementation.TreeImplementation;
 import utils.Constants;
+import utils.Json;
 import validator.Validator;
 
 import javax.swing.tree.DefaultTreeModel;
@@ -28,12 +29,14 @@ public class AppCore extends PublisherImplementation {
     private TableModel tableModel;
     private DefaultTreeModel defaultTreeModel;
     private Tree tree;
+    private Json json;
 
     public AppCore() {
         this.settings = initSettings();
         this.database = new DatabaseImplementation(new MYSQLrepository(this.settings));
         this.tableModel = new TableModel();
         this.tree = new TreeImplementation();
+        this.json = new Json();
 
     }
 

@@ -3,6 +3,7 @@ package validator;
 import validator.rules.AbstractRule;
 import validator.rules.RuleInit;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class ValidatorImplementacijaa implements ValidatorInterface{
@@ -10,12 +11,16 @@ public class ValidatorImplementacijaa implements ValidatorInterface{
     ArrayList<AbstractRule> pravila;
     RuleInit ruleInit;
     AbstractRule scvPravila;
+    JsonInterface jsonInterface;
+    String greska;
 
     public ValidatorImplementacijaa() {
         pravila = new ArrayList<>();
         ruleInit = new RuleInit();
+        jsonInterface = new JsonImpl();
         pravila.addAll(ruleInit.inicijalizacija());
         scvPravila = ruleInit.inicijalizacijaCSV();
+        greska = "";
     }
 
     @Override
@@ -27,6 +32,8 @@ public class ValidatorImplementacijaa implements ValidatorInterface{
                 //tacno
             }
             else{
+                greska = jsonInterface.doError(pravilo.getClass().toString());
+                System.out.println(greska);
                 //System.out.println(brojac++);
                 povratnaInformacija += pravilo.proveraPravila(upit);
                 //System.out.println(povratnaInformacija);
