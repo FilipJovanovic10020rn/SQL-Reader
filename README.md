@@ -1,7 +1,4 @@
-Veljko Zivanovic 
-Filip Jovanovic
+## Introduction
+This is a java aplication connected to a MYSQL database used to read, validate and execute SQL queries. 
+The point of the project is creating rules for the SQL language and using them for validation of user input.
 
-* Škola jezika (više jezika, grupe, nivoi, sertifikati, polaznici, kursevi)
-
-
-bp_tim20	mCuz5mF5
